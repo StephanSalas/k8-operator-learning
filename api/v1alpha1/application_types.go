@@ -37,9 +37,6 @@ type ApplicationSpec struct {
 	// The container port to run the image on within a pod
 	ContainerPort int32 `json:"containerPort,omitempty"`
 
-	// The command to execute (optional) to run the container
-	Command string `json:"command,omitempty"`
-
 	// Size defines the number of Application instances
 	Size int32 `json:"size,omitempty"`
 
