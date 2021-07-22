@@ -26,9 +26,9 @@ import (
 )
 
 // log is for logging in this package.
-var memcachedlog = logf.Log.WithName("memcached-resource")
+var Applicationlog = logf.Log.WithName("Application-resource")
 
-func (r *Memcached) SetupWebhookWithManager(mgr ctrl.Manager) error {
+func (r *Application) SetupWebhookWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewWebhookManagedBy(mgr).
 		For(r).
 		Complete()
@@ -36,13 +36,13 @@ func (r *Memcached) SetupWebhookWithManager(mgr ctrl.Manager) error {
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
-//+kubebuilder:webhook:path=/mutate-cache-example-com-v1alpha1-memcached,mutating=true,failurePolicy=fail,sideEffects=None,groups=cache.example.com,resources=memcacheds,verbs=create;update,versions=v1alpha1,name=mmemcached.kb.io,admissionReviewVersions={v1,v1beta1}
+//+kubebuilder:webhook:path=/mutate-cache-example-com-v1alpha1-Application,mutating=true,failurePolicy=fail,sideEffects=None,groups=cache.example.com,resources=Applications,verbs=create;update,versions=v1alpha1,name=mApplication.kb.io,admissionReviewVersions={v1,v1beta1}
 
-var _ webhook.Defaulter = &Memcached{}
+var _ webhook.Defaulter = &Application{}
 
 // Default implements webhook.Defaulter so a webhook will be registered for the type
-func (r *Memcached) Default() {
-	memcachedlog.Info("default", "name", r.Name)
+func (r *Application) Default() {
+	Applicationlog.Info("default", "name", r.Name)
 
 	if r.Spec.Size == 0 {
 		r.Spec.Size = 3
@@ -50,26 +50,26 @@ func (r *Memcached) Default() {
 }
 
 // TODO(user): change verbs to "verbs=create;update;delete" if you want to enable deletion validation.
-//+kubebuilder:webhook:path=/validate-cache-example-com-v1alpha1-memcached,mutating=false,failurePolicy=fail,sideEffects=None,groups=cache.example.com,resources=memcacheds,verbs=create;update,versions=v1alpha1,name=vmemcached.kb.io,admissionReviewVersions={v1,v1beta1}
+//+kubebuilder:webhook:path=/validate-cache-example-com-v1alpha1-Application,mutating=false,failurePolicy=fail,sideEffects=None,groups=cache.example.com,resources=Applications,verbs=create;update,versions=v1alpha1,name=vApplication.kb.io,admissionReviewVersions={v1,v1beta1}
 
-var _ webhook.Validator = &Memcached{}
+var _ webhook.Validator = &Application{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
-func (r *Memcached) ValidateCreate() error {
-	memcachedlog.Info("validate create", "name", r.Name)
+func (r *Application) ValidateCreate() error {
+	Applicationlog.Info("validate create", "name", r.Name)
 
 	return validateOdd(r.Spec.Size)
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
-func (r *Memcached) ValidateUpdate(old runtime.Object) error {
-	memcachedlog.Info("validate update", "name", r.Name)
+func (r *Application) ValidateUpdate(old runtime.Object) error {
+	Applicationlog.Info("validate update", "name", r.Name)
 	return validateOdd(r.Spec.Size)
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
-func (r *Memcached) ValidateDelete() error {
-	memcachedlog.Info("validate delete", "name", r.Name)
+func (r *Application) ValidateDelete() error {
+	Applicationlog.Info("validate delete", "name", r.Name)
 
 	return nil
 }
