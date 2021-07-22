@@ -31,8 +31,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	cachev1alpha1 "github.com/example/memcached-operator/api/v1alpha1"
-	"github.com/example/memcached-operator/controllers"
+	cachev1alpha1 "github.com/StephanSalas/k8-operator-learning/api/v1alpha1"
+	"github.com/StephanSalas/k8-operator-learning/controllers"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -78,14 +78,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.MemcachedReconciler{
+	if err = (&controllers.ApplicationReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Memcached")
 		os.Exit(1)
 	}
-	if err = (&cachev1alpha1.Memcached{}).SetupWebhookWithManager(mgr); err != nil {
+	if err = (&cachev1alpha1.Application{}).SetupWebhookWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create webhook", "webhook", "Memcached")
 		os.Exit(1)
 	}

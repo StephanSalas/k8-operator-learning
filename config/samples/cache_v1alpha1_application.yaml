@@ -1,0 +1,12 @@
+apiVersion: cache.example.com/v1alpha1
+kind: Application
+metadata:
+  name: Application-sample
+spec:
+  # Add fields here
+  image: busybox/busybox
+  name: Application
+  containerPort: 11211 
+  size: 1
+  minSize: 1
+  maxSize: 2

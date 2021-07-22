@@ -1,4 +1,4 @@
-module github.com/example/memcached-operator
+module github.com/StephanSalas/k8-operator-learning
 
 go 1.16
 
