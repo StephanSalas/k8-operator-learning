@@ -45,9 +45,6 @@ type ApplicationSpec struct {
 
 	// MaxSize defines the maximum number of application instances that can be created
 	MaxSize int32 `json:"maxSize,omitempty"`
-
-	// Foo is an example field of Application. Edit Application_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
 }
 
 // ApplicationStatus defines the observed state of Application

@@ -44,8 +44,8 @@ var _ webhook.Defaulter = &Application{}
 func (r *Application) Default() {
 	Applicationlog.Info("default", "name", r.Name)
 
-	if r.Spec.Size == 0 {
-		r.Spec.Size = 3
+	if r.Spec.Size < r.Spec.MinSize {
+		r.Spec.Size = r.Spec.MinSize
 	}
 }
 
@@ -58,13 +58,13 @@ var _ webhook.Validator = &Application{}
 func (r *Application) ValidateCreate() error {
 	Applicationlog.Info("validate create", "name", r.Name)
 
-	return validateOdd(r.Spec.Size)
+	return validateInRange(r.Spec.Size, r.Spec.MinSize, r.Spec.MaxSize)
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
 func (r *Application) ValidateUpdate(old runtime.Object) error {
 	Applicationlog.Info("validate update", "name", r.Name)
-	return validateOdd(r.Spec.Size)
+	return validateInRange(r.Spec.Size, r.Spec.MinSize, r.Spec.MaxSize)
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
@@ -73,9 +73,10 @@ func (r *Application) ValidateDelete() error {
 
 	return nil
 }
-func validateOdd(n int32) error {
-	if n%2 == 0 {
-		return errors.New("Cluster size must be an odd number")
+func validateInRange(requestedAmount int32, minRange int32, maxRange int32) error {
+	if maxRange < requestedAmount || requestedAmount < minRange {
+		return errors.New("cluster size must be within the range specified by the resource request for this operator")
 	}
+
 	return nil
 }
