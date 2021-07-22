@@ -8,6 +8,6 @@ tests require a TLS Cert in the right place on your local, whereas actually depl
 6. edit the manager.yaml in /config/manager and add "ImagePullPolicy: Never" in the appropriate spot
 7. run "make install"
 8. run "make deploy"
-9. run "kubectl create -f config/samples/cache_v1alpha1_memcached.yaml -n  memcached-operator-system"
+9. run "kubectl create -f config/samples/v1alpha1_application.yaml -n  application-operator-system"
 
 TODO: Figure out how to get the metrics fully up-and-running.
